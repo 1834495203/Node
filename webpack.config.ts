@@ -49,6 +49,7 @@ function common_path(lhs: string, rhs: string) {
 }
 
 function glob_script_files() {
+<<<<<<< HEAD
   const files: string[] = fs
     .globSync(`src/**/index.{ts,tsx,js,jsx}`)
     .filter(
@@ -57,6 +58,15 @@ function glob_script_files() {
 
   const results: string[] = [];
   const handle = (file: string) => {
+=======
+  const results: string[] = [];
+
+  fs.globSync(`{示例,src}/**/index.{ts,tsx,js,jsx}`)
+    .filter(
+      file => process.env.CI !== 'true' || !fs.readFileSync(path.join(import.meta.dirname, file)).includes('@no-ci'),
+    )
+    .forEach(file => {
+>>>>>>> 4741a7f3f26e7dd204604e0eeda9bc0fdb69e981
     const file_dirname = path.dirname(file);
     for (const [index, result] of results.entries()) {
       const result_dirname = path.dirname(result);
@@ -70,8 +80,13 @@ function glob_script_files() {
       }
     }
     results.push(file);
+<<<<<<< HEAD
   };
   files.forEach(handle);
+=======
+    });
+
+>>>>>>> 4741a7f3f26e7dd204604e0eeda9bc0fdb69e981
   return results;
 }
 
@@ -207,7 +222,11 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
       path: path.join(
         import.meta.dirname,
         'dist',
+<<<<<<< HEAD
         path.relative(path.join(import.meta.dirname, 'src'), script_filepath.dir),
+=======
+        path.relative(import.meta.dirname, script_filepath.dir).replace(/^[^\\/]+[\\/]/, ''),
+>>>>>>> 4741a7f3f26e7dd204604e0eeda9bc0fdb69e981
       ),
       chunkFilename: `${script_filepath.name}.[contenthash].chunk.js`,
       asyncChunks: true,
@@ -523,6 +542,10 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
         request.startsWith('!') ||
         request.startsWith('http') ||
         request.startsWith('@/') ||
+<<<<<<< HEAD
+=======
+        request.startsWith('@util/') ||
+>>>>>>> 4741a7f3f26e7dd204604e0eeda9bc0fdb69e981
         path.isAbsolute(request) ||
         fs.existsSync(path.join(context, request)) ||
         fs.existsSync(request)
