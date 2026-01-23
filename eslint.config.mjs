@@ -31,7 +31,11 @@ export default [
     },
     settings: {
       'better-tailwindcss': {
+<<<<<<< HEAD
         entryPoint: 'src/global.css',
+=======
+        entryPoint: 'tailwind.css',
+>>>>>>> c9caee866fce817dfc1a431872cc0dffa951a5e9
         tailwindConfig: 'tailwind.config.js',
       },
     },
